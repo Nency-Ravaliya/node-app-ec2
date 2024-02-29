@@ -50,7 +50,7 @@ jobs:
         with:
           host: ${{ env.EC2_INSTANCE_PUBLIC_IP }}
           username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_SSH_KEY }}
+          key: ${{ secrets.AWS_SSH_KEY }}
           script: |
             docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
             docker run -d -p 80:80 $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
