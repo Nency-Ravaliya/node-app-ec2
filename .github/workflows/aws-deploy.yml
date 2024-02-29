@@ -52,5 +52,9 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.AWS_SSH_KEY }}
           script: |
+            set -e
+            echo "Connecting to EC2 instance..."
+            docker --version
+            ssh -o StrictHostKeyChecking=no -i ${{ secrets.AWS_SSH_KEY }} ${{ secrets.EC2_USERNAME }}@${{ env.EC2_INSTANCE_PUBLIC_IP }} "docker --version"
             docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
             docker run -d -p 80:80 $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
